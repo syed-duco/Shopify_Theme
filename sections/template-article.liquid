@@ -4,8 +4,30 @@
 <small>{{ article.author }}</small>
 <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%Y-%m-%d' }}</time>
 
-<img src="{{ article.image | img_url: 'large' }}" height="100" width="100" alt="{{ article.image.alt }}" />
+<img src="{{ article.image | image_url }}" width="1000" height="1000" alt="{{ article.image.alt }}" />
 
 <div>
   {{ article.content }}
 </div>
+
+<h1>Our Products</h1>
+ 
+    <!-- HTML & Liquid construct the list of products -->
+    {% for product in collection.products %}
+        <div class="product" data-id="{{ product.id }}">
+            <h2>{{ product.title }}</h2>
+            <p>Price: {{ product.price | money }}</p>
+            <button class="details-button">Show Details</button>
+        </div>
+    {% endfor %}
+ 
+    <script>
+        // JavaScript for interactivity
+        document.querySelectorAll('.details-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const productDiv = this.parentElement;
+                productDiv.classList.toggle('highlight');
+                alert(`Details for ${productDiv.querySelector('h2').innerText}`);
+            });
+        });
+    </script>
