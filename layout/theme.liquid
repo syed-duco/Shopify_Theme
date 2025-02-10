@@ -17,6 +17,27 @@
     <main role="main" >
       {{ content_for_layout }}
     </main>
+    <h1>Our Products</h1>
+ 
+    <!-- HTML & Liquid construct the list of products -->
+    {% for product in collection.products %}
+        <div class="product" data-id="{{ product.id }}">
+            <h2>{{ product.title }}</h2>
+            <p>Price: {{ product.price | money }}</p>
+            <button class="details-button">Show Details</button>
+        </div>
+    {% endfor %}
+ 
+    <script>
+        // JavaScript for interactivity
+        document.querySelectorAll('.details-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const productDiv = this.parentElement;
+                productDiv.classList.toggle('highlight');
+                alert(`Details for ${productDiv.querySelector('h2').innerText}`);
+            });
+        });
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   </body>
